@@ -5,20 +5,14 @@ driver:
   name: docker
 lint:
   name: yamllint
-  options:
-    config-file: molecule/default/yaml-lint.yml
 platforms:
-  - name: instance
-    image: geerlingguy/docker-${MOLECULE_DISTRO:-centos7}-ansible
-    command: ${MOLECULE_DOCKER_COMMAND:-"sleep infinity"}
-    privileged: true
-    pre_build_image: true
+  - name: php
+    image: ${IMAGE}
+    privileged: True
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
-  playbooks:
-    converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 scenario:
   name: default
 verifier:

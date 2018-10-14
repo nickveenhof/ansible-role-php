@@ -1,0 +1,4 @@
+{
+  "tests/test_php.py::test_apache_is_running[ansible://php-ubuntu-14.04]": true, 
+  "tests/test_php.py::test_apache_is_running[ansible://php-ubuntu-16.04]": true
+}

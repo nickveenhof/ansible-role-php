@@ -1,4 +1,10 @@
 ---
+
+# Ubuntu-specific tasks.
+- name: Add Ondrej Sury's repo.
+  apt_repository: repo='ppa:ondrej/php'
+  when: ansible_distribution == 'Ubuntu'
+
 - name: Update apt cache.
   apt: update_cache=yes cache_valid_time=86400
 
@@ -17,6 +23,8 @@
   with_items: "{{ php_extension_conf_paths }}"
   when: php_enable_apc and php_package_install.changed
   notify: restart webserver
+  tags:
+    - skip_ansible_lint
 
 - name: Delete OpCache configuration file if this role will provide one.
   file:
@@ -25,3 +33,5 @@
   with_items: "{{ php_extension_conf_paths }}"
   when: php_opcache_enable and php_package_install.changed
   notify: restart webserver
+  tags:
+    - skip_ansible_lint
